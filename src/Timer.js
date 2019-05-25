@@ -4,7 +4,8 @@ export default class Timer extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            time: this.props.initTime,
+            time: this.props.timeSettings.initTime,
+            initExtra: this.props.timeSettings.initExtra,
             interval: null,
             extraTime: this.props.extraTime
         };
@@ -26,7 +27,7 @@ export default class Timer extends React.Component {
     addExtraTime() {
         if (this.state.extraTime !== this.props.extraTime) {
             let time = this.state.time;
-            time += this.props.initExtra;
+            time += this.state.initExtra;
             this.setState({ extraTime: this.props.extraTime, time: time });
         }
     }

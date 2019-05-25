@@ -1,18 +1,17 @@
 import React from "react";
 
-export default class MoneyTree extends React.Component {
-    class(current) {
-        if (current === this.props.current) return "current";
+export default function MoneyTree({ values, current }) {
+    function setCurrent(item) {
+        if (item === current) return "current";
     }
-    render() {
-        return (
-            <ul>
-                {this.props.values.map((val, i) => (
-                    <li key={val} className={this.class(i)}>
-                        {val}
-                    </li>
-                ))}
-            </ul>
-        );
-    }
+
+    return (
+        <ul>
+            {values.map((val, i) => (
+                <li key={val} className={setCurrent(i)}>
+                    {val}
+                </li>
+            ))}
+        </ul>
+    );
 }
