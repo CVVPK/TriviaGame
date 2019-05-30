@@ -5,6 +5,7 @@ import Score from "./Score";
 import Timer from "./Timer";
 import EndGame from "./EndGame";
 import timeDifficulty from "./timeDifficulty";
+import { MyContext } from "./MyContext";
 
 // Main Game component
 export default class Game extends React.Component {
@@ -17,7 +18,6 @@ export default class Game extends React.Component {
             values: [1, 2, 3, 4, 5],
             current: 0,
             score: 0,
-            timeSettings: timeDifficulty(this.props),
             extraTime: false
         };
         this.startGame = this.startGame.bind(this);
@@ -61,12 +61,16 @@ export default class Game extends React.Component {
         return (
             <React.Fragment>
                 {!this.state.finish && (
-                    <Question
-                        startGame={this.startGame}
-                        category={this.props.category}
-                        newQ={this.state.newQ}
-                        onClick={this.handleClick}
-                    />
+                    <MyContext.Consumer>
+                        {({ state: { category } }) => (
+                            <Question
+                                startGame={this.startGame}
+                                category={category}
+                                newQ={this.state.newQ}
+                                onClick={this.handleClick}
+                            />
+                        )}
+                    </MyContext.Consumer>
                 )}
 
                 {this.state.playing && (
@@ -76,11 +80,15 @@ export default class Game extends React.Component {
                             current={this.state.current}
                         />
                         <Score score={this.state.score} />
-                        <Timer
-                            timeSettings={this.state.timeSettings}
-                            extraTime={this.state.extraTime}
-                            finishGame={this.finishGame}
-                        />
+                        <MyContext.Consumer>
+                            {({ state }) => (
+                                <Timer
+                                    timeSettings={timeDifficulty(state)}
+                                    extraTime={this.state.extraTime}
+                                    finishGame={this.finishGame}
+                                />
+                            )}
+                        </MyContext.Consumer>
                     </React.Fragment>
                 )}
                 {!this.state.playing && this.state.finish && (
