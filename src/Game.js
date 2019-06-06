@@ -1,12 +1,11 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import Question from "./Question.js";
-import MoneyTree from "./MoneyTree";
-import Score from "./Score";
-import Timer from "./Timer";
+import QuestionProvider from "./QuestionProvider.js";
+import QuestionDisplay from "./QuestionDisplay";
 import EndGame from "./EndGame";
-import timeDifficulty from "./timeDifficulty";
-import { MyContext } from "./MyContext";
+import { Settings } from "./SettingsProvider";
+import Answers from "./Answers";
+import PlayingDisplay from "./PlayingDisplay.js";
 
 // Main Game component
 export default class Game extends React.Component {
@@ -55,7 +54,7 @@ export default class Game extends React.Component {
     }
 
     finishGame() {
-        // this.setState({ playing: false, finish: true });
+        this.setState({ playing: false, finish: true });
     }
 
     render() {
@@ -67,47 +66,30 @@ export default class Game extends React.Component {
                 spacing={0}
             >
                 {!this.state.finish && (
-                    <Grid container direction="column" sm={5}>
-                        <MyContext.Consumer>
-                            {({ state: { category } }) => (
-                                <Question
-                                    startGame={this.startGame}
-                                    category={category}
-                                    newQ={this.state.newQ}
-                                    onClick={this.handleClick}
-                                />
-                            )}
-                        </MyContext.Consumer>
-                    </Grid>
-                )}
+                    <Settings.Consumer>
+                        {({ state }) => (
+                            <QuestionProvider
+                                startGame={this.startGame}
+                                category={state.category}
+                                newQ={this.state.newQ}
+                                onClick={this.handleClick}
+                            >
+                                <QuestionDisplay />
 
-                {this.state.playing && (
-                    <React.Fragment>
-                        <Grid
-                            container
-                            alignItems="center"
-                            direction="column"
-                            sm={3}
-                        >
-                            <Score score={this.state.score} />
-                            <MyContext.Consumer>
-                                {({ state }) => (
-                                    <Timer
-                                        timeSettings={timeDifficulty(state)}
-                                        extraTime={this.state.extraTime}
+                                {this.state.playing && (
+                                    <PlayingDisplay
+                                        state={this.state}
+                                        settings={state}
                                         finishGame={this.finishGame}
                                     />
                                 )}
-                            </MyContext.Consumer>
-                        </Grid>
-                        <Grid sm={3}>
-                            <MoneyTree
-                                values={this.state.values}
-                                current={this.state.current}
-                            />
-                        </Grid>
-                    </React.Fragment>
+
+                                <Answers />
+                            </QuestionProvider>
+                        )}
+                    </Settings.Consumer>
                 )}
+
                 {!this.state.playing && this.state.finish && (
                     <div>
                         <EndGame score={this.state.score} />

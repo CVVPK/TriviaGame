@@ -1,8 +1,8 @@
 import React from "react";
 
-export const MyContext = React.createContext();
+export const Settings = React.createContext();
 
-export default class MyProvider extends React.Component {
+export default class SettingsProvider extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -21,7 +21,7 @@ export default class MyProvider extends React.Component {
     }
     render() {
         return (
-            <MyContext.Provider
+            <Settings.Provider
                 value={{
                     state: this.state,
                     onChange: this.handleChange.bind(this),
@@ -29,7 +29,7 @@ export default class MyProvider extends React.Component {
                 }}
             >
                 {this.props.children}
-            </MyContext.Provider>
+            </Settings.Provider>
         );
     }
 }

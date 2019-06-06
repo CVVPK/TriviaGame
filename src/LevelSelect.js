@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MyContext } from "./MyContext";
+import { Settings } from "./SettingsProvider";
 import { getCategories } from "./openTDB";
 import Fab from "@material-ui/core/Fab";
 import NativeSelect from "@material-ui/core/NativeSelect";
@@ -9,7 +9,7 @@ import FormControl from "@material-ui/core/FormControl";
 
 export default function LevelSelect() {
     return (
-        <MyContext.Consumer>
+        <Settings.Consumer>
             {({ state: { difficulty, category }, onChange, onClick }) => (
                 <FormControl>
                     <DifficultySelect
@@ -22,7 +22,7 @@ export default function LevelSelect() {
                     </Fab>
                 </FormControl>
             )}
-        </MyContext.Consumer>
+        </Settings.Consumer>
     );
 }
 
