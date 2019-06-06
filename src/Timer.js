@@ -39,6 +39,6 @@ export default class Timer extends React.Component {
         this.stopAtZero();
     }
     render() {
-        return <div>Time: {this.state.time}</div>;
+        return <div className="time">Time: {this.state.time}</div>;
     }
 }

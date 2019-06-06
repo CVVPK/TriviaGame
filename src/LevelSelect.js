@@ -1,68 +1,71 @@
 import React, { useState } from "react";
 import { MyContext } from "./MyContext";
 import { getCategories } from "./openTDB";
+import Fab from "@material-ui/core/Fab";
+import NativeSelect from "@material-ui/core/NativeSelect";
+import InputLabel from "@material-ui/core/InputLabel";
+import Input from "@material-ui/core/Input";
+import FormControl from "@material-ui/core/FormControl";
 
 export default function LevelSelect() {
     return (
         <MyContext.Consumer>
-            {({ onSubmit }) => (
-                <form onSubmit={onSubmit}>
-                    <DifficultySelect />
-                    <CategorySelect />
-                    <input type="submit" value="Play" />
-                </form>
-            )}
-        </MyContext.Consumer>
-    );
-}
-
-function DifficultySelect() {
-    return (
-        <MyContext.Consumer>
-            {({ state: { difficulty }, onChange }) => (
-                <label>
-                    Difficulty
-                    <select
-                        name="difficulty"
-                        value={difficulty}
+            {({ state: { difficulty, category }, onChange, onClick }) => (
+                <FormControl>
+                    <DifficultySelect
+                        difficulty={difficulty}
                         onChange={onChange}
-                    >
-                        <option defaultValue value="easy">
-                            Easy
-                        </option>
-                        <option value="normal">Normal</option>
-                        <option value="hard">Hard</option>
-                    </select>
-                </label>
+                    />
+                    <CategorySelect category={category} onChange={onChange} />{" "}
+                    <Fab size="large" onClick={onClick}>
+                        Play
+                    </Fab>
+                </FormControl>
             )}
         </MyContext.Consumer>
     );
 }
 
-function CategorySelect() {
+function DifficultySelect({ difficulty, onChange }) {
+    return (
+        <FormControl>
+            <InputLabel htmlFor="difficulty-select">Difficulty</InputLabel>
+            <NativeSelect
+                value={difficulty}
+                onChange={onChange}
+                input={<Input name="difficulty" id="difficulty-select" />}
+            >
+                <option value="" />
+                <option value="easy">Easy</option>
+                <option value="normal">Normal</option>
+                <option value="hard">Hard</option>
+            </NativeSelect>
+        </FormControl>
+    );
+}
+
+function CategorySelect({ category, onChange }) {
     const [categories, setCategories] = useState([]);
 
     // Populate categories with the categories available in the DB.
-    getCategories().then((categories) => setCategories(categories));
+    if (categories.length === 0)
+        getCategories().then((categories) => setCategories(categories));
 
     return (
-        <MyContext.Consumer>
-            {({ state: { category }, onChange }) => (
-                <label>
-                    Category:
-                    <select
-                        name="category"
-                        value={category}
-                        onChange={onChange}
-                    >
-                        {categories.map((category) => (
-                            <option key={category.id} value={category.id}>
-                                {category.name}
-                            </option>
-                        ))}
-                    </select>
-                </label>
-            )}
-        </MyContext.Consumer>
+        <FormControl>
+            <InputLabel htmlFor="category-select">Category</InputLabel>
+            <NativeSelect
+                value={category}
+                onChange={onChange}
+                input={<Input name="category" id="category-select" />}
+            >
+                <option value="" />
+                {categories.map((category) => (
+                    <option key={category.id} value={category.id}>
+                        {category.name}
+                    </option>
+                ))}
+            </NativeSelect>
+        </FormControl>
     );
 }

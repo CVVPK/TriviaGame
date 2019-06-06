@@ -2,20 +2,22 @@ import React from "react";
 
 export const MyContext = React.createContext();
 
-export class MyProvider extends React.Component {
+export default class MyProvider extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            category: 9,
-            difficulty: "easy"
+            category: 9, // ""
+            difficulty: "hard" //""
         };
     }
 
     handleChange({ target: { value, name } }) {
         this.setState({ [name]: value });
     }
-    handleSubmit(event) {
-        this.setState(this.props.setDisplayGame(true));
+    handleClick(event) {
+        if (this.state.category === "" || this.state.difficulty === "")
+            alert("Set difficulty and category");
+        else this.setState(this.props.setDisplayGame(true));
     }
     render() {
         return (
@@ -23,7 +25,7 @@ export class MyProvider extends React.Component {
                 value={{
                     state: this.state,
                     onChange: this.handleChange.bind(this),
-                    onSubmit: this.handleSubmit.bind(this)
+                    onClick: this.handleClick.bind(this)
                 }}
             >
                 {this.props.children}

@@ -5,6 +5,9 @@ body {
         "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    background-color: rgb(14, 164, 209);
+    color: rgb(39, 45, 48);
 }
 
 code {
@@ -15,3 +18,13 @@ code {
 .current {
     background-color: red;
 }
+
+.time,
+.score {
+    padding-top: 2em;
+}
+
+/* label > select {
+    margin: 1em;
+    padding: 1em;
+} */

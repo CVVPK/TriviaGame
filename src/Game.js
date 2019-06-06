@@ -1,4 +1,5 @@
 import React from "react";
+import Grid from "@material-ui/core/Grid";
 import Question from "./Question.js";
 import MoneyTree from "./MoneyTree";
 import Score from "./Score";
@@ -54,41 +55,57 @@ export default class Game extends React.Component {
     }
 
     finishGame() {
-        this.setState({ playing: false, finish: true });
+        // this.setState({ playing: false, finish: true });
     }
 
     render() {
         return (
-            <React.Fragment>
+            <Grid
+                container
+                alignContent="space-between"
+                direction="row"
+                spacing={0}
+            >
                 {!this.state.finish && (
-                    <MyContext.Consumer>
-                        {({ state: { category } }) => (
-                            <Question
-                                startGame={this.startGame}
-                                category={category}
-                                newQ={this.state.newQ}
-                                onClick={this.handleClick}
-                            />
-                        )}
-                    </MyContext.Consumer>
+                    <Grid container direction="column" sm={5}>
+                        <MyContext.Consumer>
+                            {({ state: { category } }) => (
+                                <Question
+                                    startGame={this.startGame}
+                                    category={category}
+                                    newQ={this.state.newQ}
+                                    onClick={this.handleClick}
+                                />
+                            )}
+                        </MyContext.Consumer>
+                    </Grid>
                 )}
 
                 {this.state.playing && (
                     <React.Fragment>
-                        <MoneyTree
-                            values={this.state.values}
-                            current={this.state.current}
-                        />
-                        <Score score={this.state.score} />
-                        <MyContext.Consumer>
-                            {({ state }) => (
-                                <Timer
-                                    timeSettings={timeDifficulty(state)}
-                                    extraTime={this.state.extraTime}
-                                    finishGame={this.finishGame}
-                                />
-                            )}
-                        </MyContext.Consumer>
+                        <Grid
+                            container
+                            alignItems="center"
+                            direction="column"
+                            sm={3}
+                        >
+                            <Score score={this.state.score} />
+                            <MyContext.Consumer>
+                                {({ state }) => (
+                                    <Timer
+                                        timeSettings={timeDifficulty(state)}
+                                        extraTime={this.state.extraTime}
+                                        finishGame={this.finishGame}
+                                    />
+                                )}
+                            </MyContext.Consumer>
+                        </Grid>
+                        <Grid sm={3}>
+                            <MoneyTree
+                                values={this.state.values}
+                                current={this.state.current}
+                            />
+                        </Grid>
                     </React.Fragment>
                 )}
                 {!this.state.playing && this.state.finish && (
@@ -96,7 +113,7 @@ export default class Game extends React.Component {
                         <EndGame score={this.state.score} />
                     </div>
                 )}
-            </React.Fragment>
+            </Grid>
         );
     }
 }
