@@ -16,7 +16,7 @@ export default function LevelSelect() {
                         difficulty={difficulty}
                         onChange={onChange}
                     />
-                    <CategorySelect category={category} onChange={onChange} />{" "}
+                    <CategorySelect category={category} onChange={onChange} />
                     <Fab size="large" onClick={onClick}>
                         Play
                     </Fab>

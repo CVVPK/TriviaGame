@@ -7,6 +7,7 @@ export default class QuestionProvider extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            category: "",
             questions: [],
             question: "",
             correct_answer: "",
@@ -14,13 +15,16 @@ export default class QuestionProvider extends React.Component {
             newQ: this.props.newQ,
             refilling: false
         };
+        this.setQAndA = this.setQAndA.bind(this);
     }
+
     async populateQuestions() {
         const newQuestions = await getQ(this.props);
         let questions = [...newQuestions, ...this.state.questions];
         this.setState({ questions: questions });
         this.props.startGame();
     }
+
     refillQuestions() {
         if (!this.state.refilling) {
             this.populateQuestions().then(() =>
@@ -29,8 +33,11 @@ export default class QuestionProvider extends React.Component {
             this.setState({ refilling: true });
         }
     }
+
+    // Sets the current Question and Answers.
     setQAndA() {
         const {
+            category,
             question,
             correct_answer,
             incorrect_answers
@@ -38,6 +45,7 @@ export default class QuestionProvider extends React.Component {
         const answers = shuffle([correct_answer, ...incorrect_answers]);
 
         this.setState({
+            category: category,
             question: question,
             correct_answer: correct_answer,
             answers: answers
@@ -58,6 +66,8 @@ export default class QuestionProvider extends React.Component {
     componentDidMount() {
         this.populateQuestions().then(() => this.setQAndA());
     }
+
+    // Check if the game needs to change question on update.
     componentDidUpdate() {
         if (this.props.newQ !== this.state.newQ) {
             this.setQAndA();

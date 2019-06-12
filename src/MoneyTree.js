@@ -5,13 +5,5 @@ export default function MoneyTree({ values, current }) {
         if (item === current) return "current";
     }
 
-    return (
-        <ul>
-            {values.map((val, i) => (
-                <li key={val} className={setCurrent(i)}>
-                    {val}
-                </li>
-            ))}
-        </ul>
-    );
+    return <span>Points: {values[current]}</span>;
 }

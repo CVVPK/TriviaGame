@@ -1,29 +1,54 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Score from "./Score";
 import Timer from "./Timer";
 import timeDifficulty from "./timeDifficulty";
-import MoneyTree from "./MoneyTree";
+import QuestionDisplay from "./QuestionDisplay";
+import AnswersDisplay from "./AnswersDisplay";
+import { Typography } from "@material-ui/core";
 
 export default function PlayingDisplay({
-    state: { score, extraTime, values, current },
+    state: { score, extraTime, values, current, playing },
     finishGame,
-    settings
+    difficulty
 }) {
-    return (
-        <React.Fragment>
-            <Grid container alignItems="center" direction="column" sm={3}>
-                <Score score={score} />
+    if (playing)
+        return (
+            <React.Fragment>
+                <Grid
+                    container
+                    alignContent="flex-start"
+                    justify="space-between"
+                    direction="column"
+                >
+                    <Grid container justify="space-between">
+                        <Typography variant="h4">
+                            <Score score={score} />
+                        </Typography>
+                        <Typography variant="h4">
+                            <Timer
+                                timeSettings={timeDifficulty(difficulty)}
+                                extraTime={extraTime}
+                                finishGame={finishGame}
+                            />
+                        </Typography>
+                    </Grid>
 
-                <Timer
-                    timeSettings={timeDifficulty(settings)}
-                    extraTime={extraTime}
-                    finishGame={finishGame}
-                />
+                    <QuestionDisplay />
+                </Grid>
+                <AnswersDisplay />
+            </React.Fragment>
+        );
+    else
+        return (
+            <Grid
+                container
+                justify="center"
+                direction="column"
+                alignItems="center"
+            >
+                <CircularProgress size={100} thickness={5} />
             </Grid>
-            <Grid sm={3}>
-                <MoneyTree values={values} current={current} />
-            </Grid>
-        </React.Fragment>
-    );
+        );
 }

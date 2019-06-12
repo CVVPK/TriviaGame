@@ -1,7 +1,7 @@
 import TimeSettings from "./TimeSettings.js";
 
 // Returns a TimeSettings object corresponding to  difficulty
-export default function timeDifficulty({ difficulty }) {
+export default function timeDifficulty(difficulty) {
     let time = {
         easy: new TimeSettings(30, 10),
         normal: new TimeSettings(20, 5),

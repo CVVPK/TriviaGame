@@ -5,10 +5,10 @@ import Game from "./Game.js";
 import LevelSelect from "./LevelSelect";
 
 export default function App() {
-    const [displayGame, setDisplayGame] = useState(false); // false
+    const [displayGame, setDisplayGame] = useState(true); // false
 
     return (
-        <Container maxWidth="sm">
+        <Container maxWidth="lg">
             <SettingsProvider setDisplayGame={setDisplayGame}>
                 {!displayGame && <LevelSelect />}
                 {displayGame && <Game />}
