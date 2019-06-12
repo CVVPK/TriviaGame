@@ -7,7 +7,6 @@ export default class QuestionProvider extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            category: "",
             questions: [],
             question: "",
             correct_answer: "",
@@ -33,33 +32,35 @@ export default class QuestionProvider extends React.Component {
             this.setState({ refilling: true });
         }
     }
-
     // Sets the current Question and Answers.
     setQAndA() {
-        const {
-            category,
-            question,
-            correct_answer,
-            incorrect_answers
-        } = this.getQuestion();
-        const answers = shuffle([correct_answer, ...incorrect_answers]);
+        try {
+            const {
+                question,
+                correct_answer,
+                incorrect_answers
+            } = this.getQuestion();
+            const answers = shuffle([correct_answer, ...incorrect_answers]);
 
-        this.setState({
-            category: category,
-            question: question,
-            correct_answer: correct_answer,
-            answers: answers
-        });
+            this.setState({
+                question: question,
+                correct_answer: correct_answer,
+                answers: answers
+            });
+        } catch (error) {
+            // setTimeout(() => this.setQAndA(), 5000);
+        }
     }
     getQuestion() {
         let questions = this.state.questions;
         let question = questions.pop();
 
-        if (questions.length < 5) {
+        if (questions.length < 10) {
             this.refillQuestions();
         }
-
-        this.setState({ questions: questions });
+        if (question === undefined) {
+            throw Error("No more Questions!");
+        } else this.setState({ questions: questions });
 
         return question;
     }

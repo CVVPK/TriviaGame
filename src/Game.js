@@ -13,10 +13,9 @@ export default class Game extends React.Component {
             playing: false,
             finish: false,
             newQ: false,
-            values: [100, 200, 300, 400, 500],
-            current: 0,
             score: 0,
-            extraTime: false
+            extraTime: false,
+            endGameMsg: ""
         };
         this.startGame = this.startGame.bind(this);
         this.finishGame = this.finishGame.bind(this);
@@ -24,24 +23,14 @@ export default class Game extends React.Component {
     }
 
     handleClick(correct) {
-        // Levels up, prevents overflow.
-        const goUp = ({ current, values }) =>
-            current < values.length - 1 ? ++current : values.length - 1;
-
-        // Levels down, prevents <0
-        const goDown = ({ current }) => (current > 0 ? --current : 0);
-
-        const newScore = ({ score, values, current }) => {
-            // score += correct ? values[current] : -values[current];
+        const newScore = ({ score }) => {
             score += correct ? 1 : 0;
             return score;
         };
-        const newCurrent = (state) => (correct ? goUp(state) : goDown(state));
         const isExtraTime = ({ extraTime }) =>
             correct ? !extraTime : extraTime;
 
         this.setState({
-            // current: newCurrent(this.state),
             score: newScore(this.state),
             extraTime: isExtraTime(this.state),
             newQ: !this.state.newQ
@@ -52,8 +41,8 @@ export default class Game extends React.Component {
         this.setState({ playing: true });
     }
 
-    finishGame() {
-        // this.setState({ playing: false, finish: true });
+    finishGame(msg) {
+        this.setState({ playing: false, finish: true, endGameMsg: msg });
     }
 
     render() {
@@ -61,16 +50,16 @@ export default class Game extends React.Component {
             <Grid container>
                 {!this.state.finish && (
                     <Settings.Consumer>
-                        {({ state: { category, difficulty, catName } }) => (
+                        {({ state: { category, difficulty } }) => (
                             <QuestionProvider
                                 startGame={this.startGame}
+                                finishGame={this.finishGame}
                                 category={category}
                                 newQ={this.state.newQ}
                                 onClick={this.handleClick}
                             >
                                 <PlayingDisplay
                                     state={this.state}
-                                    catName={catName}
                                     difficulty={difficulty}
                                     finishGame={this.finishGame}
                                 />
@@ -79,9 +68,10 @@ export default class Game extends React.Component {
                     </Settings.Consumer>
                 )}
                 {!this.state.playing && this.state.finish && (
-                    <div>
-                        <EndGame score={this.state.score} />
-                    </div>
+                    <EndGame
+                        score={this.state.score}
+                        endGameMsg={this.state.endGameMsg}
+                    />
                 )}
             </Grid>
         );

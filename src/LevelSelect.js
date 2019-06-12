@@ -61,7 +61,12 @@ function CategorySelect({ category, onChange }) {
             >
                 <option value="" />
                 {categories.map((category) => (
-                    <option key={category.id} value={category.id}>
+                    <option
+                        key={category.id}
+                        // value={[category.id, category.name]}
+                        value={category.id}
+                        catname={category.name}
+                    >
                         {category.name}
                     </option>
                 ))}

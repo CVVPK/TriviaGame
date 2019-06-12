@@ -6,12 +6,16 @@ export default class SettingsProvider extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            // catName: "",
             category: 9, // ""
             difficulty: "hard" //""
         };
     }
-
     handleChange({ target: { value, name } }) {
+        // console.log(typeof value);
+        // if (Array.isArray(value)) console.log("ye");
+        // this.setState({ [name]: value[0], catName: value[1] });
+
         this.setState({ [name]: value });
     }
     handleClick(event) {

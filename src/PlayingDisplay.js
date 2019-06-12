@@ -9,7 +9,7 @@ import AnswersDisplay from "./AnswersDisplay";
 import { Typography } from "@material-ui/core";
 
 export default function PlayingDisplay({
-    state: { score, extraTime, values, current, playing },
+    state: { score, extraTime, playing },
     finishGame,
     difficulty
 }) {

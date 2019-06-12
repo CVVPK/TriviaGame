@@ -46,6 +46,5 @@ function Answer({ answer }) {
 
 const answerStyle = {
     padding: "5%",
-    // fontSize: "1.2rem",
     height: "100%"
 };

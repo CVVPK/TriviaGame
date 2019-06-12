@@ -21,7 +21,7 @@ export default class Timer extends React.Component {
     stopAtZero() {
         if (this.state.time === 0) {
             clearInterval(this.state.interval);
-            this.props.finishGame();
+            this.props.finishGame("Time is up!");
         }
     }
     addExtraTime() {
@@ -38,7 +38,10 @@ export default class Timer extends React.Component {
         this.addExtraTime();
         this.stopAtZero();
     }
+    componentWillUnmount() {
+        clearInterval(this.state.interval);
+    }
     render() {
-        return <div className="time">Time: {this.state.time}</div>;
+        return <div className="time">Time Left: {this.state.time}</div>;
     }
 }
