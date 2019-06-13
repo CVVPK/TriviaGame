@@ -42,7 +42,7 @@ export default class Game extends React.Component {
     }
 
     finishGame(msg) {
-        this.setState({ playing: false, finish: true, endGameMsg: msg });
+        // this.setState({ playing: false, finish: true, endGameMsg: msg });
     }
 
     render() {

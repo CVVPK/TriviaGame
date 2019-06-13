@@ -7,7 +7,8 @@ export default class Timer extends React.Component {
             time: this.props.timeSettings.initTime,
             initExtra: this.props.timeSettings.initExtra,
             interval: null,
-            extraTime: this.props.extraTime
+            extraTime: this.props.extraTime,
+            paused: false
         };
     }
 
@@ -24,6 +25,14 @@ export default class Timer extends React.Component {
             this.props.finishGame("Time is up!");
         }
     }
+
+    pause() {
+        console.log("pause");
+        if (!this.state.paused) clearInterval(this.state.interval);
+        else this.startTimer();
+        this.setState({ paused: !this.state.paused });
+    }
+
     addExtraTime() {
         if (this.state.extraTime !== this.props.extraTime) {
             let time = this.state.time;
@@ -42,6 +51,11 @@ export default class Timer extends React.Component {
         clearInterval(this.state.interval);
     }
     render() {
-        return <div className="time">Time Left: {this.state.time}</div>;
+        return (
+            <div className="time">
+                <button onClick={this.pause.bind(this)}>PAUSE/RES</button>Time
+                Left: {this.state.time}
+            </div>
+        );
     }
 }
