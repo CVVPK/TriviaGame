@@ -12,7 +12,8 @@ export default class QuestionProvider extends React.Component {
             correct_answer: "",
             answers: [],
             newQ: this.props.newQ,
-            refilling: false
+            refilling: false,
+            refillPromise: undefined
         };
         this.setQAndA = this.setQAndA.bind(this);
     }
@@ -26,10 +27,14 @@ export default class QuestionProvider extends React.Component {
 
     refillQuestions() {
         if (!this.state.refilling) {
-            this.populateQuestions().then(() =>
-                this.setState({ refilling: false })
-            );
-            this.setState({ refilling: true });
+            const refillPromise = (() =>
+                new Promise((resolve) => {
+                    this.populateQuestions().then(() => {
+                        this.setState({ refilling: false });
+                        resolve();
+                    });
+                }))();
+            this.setState({ refilling: true, refillPromise: refillPromise });
         }
     }
     // Sets the current Question and Answers.
@@ -48,7 +53,12 @@ export default class QuestionProvider extends React.Component {
                 answers: answers
             });
         } catch (error) {
-            // setTimeout(() => this.setQAndA(), 5000);
+            // Pause the game until the questions have been refilled.
+            this.props.pauseGame();
+            this.state.refillPromise.then(() => {
+                this.setQAndA();
+                this.props.resumeGame();
+            });
         }
     }
     getQuestion() {

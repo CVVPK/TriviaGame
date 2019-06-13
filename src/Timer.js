@@ -19,17 +19,21 @@ export default class Timer extends React.Component {
         }, 1000);
         this.setState({ interval: interval });
     }
+    stopTimer() {
+        clearInterval(this.state.interval);
+    }
+
     stopAtZero() {
         if (this.state.time === 0) {
-            clearInterval(this.state.interval);
+            this.stopTimer();
             this.props.finishGame("Time is up!");
         }
     }
 
-    pause() {
-        console.log("pause");
-        if (!this.state.paused) clearInterval(this.state.interval);
+    pauseResume() {
+        if (!this.state.paused) this.stopTimer();
         else this.startTimer();
+
         this.setState({ paused: !this.state.paused });
     }
 
@@ -43,18 +47,20 @@ export default class Timer extends React.Component {
     componentDidMount() {
         this.startTimer();
     }
-    componentDidUpdate() {
+    componentDidUpdate({ pause }) {
         this.addExtraTime();
         this.stopAtZero();
+        if (this.props.pause !== pause) this.pauseResume();
     }
+
     componentWillUnmount() {
-        clearInterval(this.state.interval);
+        this.stopTimer();
     }
     render() {
         return (
             <div className="time">
-                <button onClick={this.pause.bind(this)}>PAUSE/RES</button>Time
-                Left: {this.state.time}
+                {/* <button onClick={this.pauseResume.bind(this)}>PAUSE/RES</button> */}
+                Time Left: {this.state.time}
             </div>
         );
     }

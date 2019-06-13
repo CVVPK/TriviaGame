@@ -9,7 +9,7 @@ import AnswersDisplay from "./AnswersDisplay";
 import { Typography } from "@material-ui/core";
 
 export default function PlayingDisplay({
-    state: { score, extraTime, playing },
+    state: { score, extraTime, playing, pause },
     finishGame,
     difficulty
 }) {
@@ -31,10 +31,10 @@ export default function PlayingDisplay({
                                 timeSettings={timeDifficulty(difficulty)}
                                 extraTime={extraTime}
                                 finishGame={finishGame}
+                                pause={pause}
                             />
                         </Typography>
                     </Grid>
-
                     <QuestionDisplay />
                 </Grid>
                 <AnswersDisplay />

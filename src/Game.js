@@ -4,7 +4,7 @@ import QuestionProvider from "./QuestionProvider.js";
 import EndGame from "./EndGame";
 import { Settings } from "./SettingsProvider";
 import PlayingDisplay from "./PlayingDisplay.js";
-
+import PauseOverlay from "./PauseOverlay";
 // Main Game component
 export default class Game extends React.Component {
     constructor(props) {
@@ -15,11 +15,14 @@ export default class Game extends React.Component {
             newQ: false,
             score: 0,
             extraTime: false,
-            endGameMsg: ""
+            endGameMsg: "",
+            pause: false
         };
         this.startGame = this.startGame.bind(this);
         this.finishGame = this.finishGame.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.pauseGame = this.pauseGame.bind(this);
+        this.resumeGame = this.resumeGame.bind(this);
     }
 
     handleClick(correct) {
@@ -36,7 +39,12 @@ export default class Game extends React.Component {
             newQ: !this.state.newQ
         });
     }
-
+    pauseGame() {
+        this.setState({ pause: true });
+    }
+    resumeGame() {
+        this.setState({ pause: false });
+    }
     startGame() {
         this.setState({ playing: true });
     }
@@ -48,6 +56,7 @@ export default class Game extends React.Component {
     render() {
         return (
             <Grid container>
+                {this.state.pause && <PauseOverlay />}
                 {!this.state.finish && (
                     <Settings.Consumer>
                         {({ state: { category, difficulty } }) => (
@@ -57,6 +66,8 @@ export default class Game extends React.Component {
                                 category={category}
                                 newQ={this.state.newQ}
                                 onClick={this.handleClick}
+                                pauseGame={this.pauseGame}
+                                resumeGame={this.resumeGame}
                             >
                                 <PlayingDisplay
                                     state={this.state}
