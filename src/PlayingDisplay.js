@@ -11,7 +11,8 @@ import { Typography } from "@material-ui/core";
 export default function PlayingDisplay({
     state: { score, extraTime, playing, pause },
     finishGame,
-    difficulty
+    difficulty,
+    categoryName
 }) {
     if (playing)
         return (
@@ -23,10 +24,11 @@ export default function PlayingDisplay({
                     direction="column"
                 >
                     <Grid container justify="space-between">
-                        <Typography variant="h4">
+                        <Typography variant="h5">
                             <Score score={score} />
                         </Typography>
-                        <Typography variant="h4">
+
+                        <Typography variant="h5">
                             <Timer
                                 timeSettings={timeDifficulty(difficulty)}
                                 extraTime={extraTime}
@@ -35,6 +37,15 @@ export default function PlayingDisplay({
                             />
                         </Typography>
                     </Grid>
+
+                    <Typography
+                        variant="subtitle1"
+                        color="textSecondary"
+                        justify="center"
+                    >
+                        {categoryName}
+                    </Typography>
+
                     <QuestionDisplay style={questionStyle} />
                 </Grid>
                 <AnswersDisplay />

@@ -60,11 +60,15 @@ export default class Game extends React.Component {
                 {this.state.pause && <PauseOverlay />}
                 {!this.state.finish && (
                     <Settings.Consumer>
-                        {({ state: { category, difficulty } }) => (
+                        {({
+                            state: { difficulty },
+                            categoryId,
+                            categoryName
+                        }) => (
                             <QuestionProvider
                                 startGame={this.startGame}
                                 finishGame={this.finishGame}
-                                category={category}
+                                category={categoryId}
                                 newQ={this.state.newQ}
                                 onClick={this.handleClick}
                                 pauseGame={this.pauseGame}
@@ -74,6 +78,7 @@ export default class Game extends React.Component {
                                     state={this.state}
                                     difficulty={difficulty}
                                     finishGame={this.finishGame}
+                                    categoryName={categoryName}
                                 />
                             </QuestionProvider>
                         )}

@@ -78,7 +78,7 @@ function CategorySelect({ category, onChange, className }) {
     // Populate categories with the categories available in the DB.
     if (categories.length === 0)
         getCategories().then((categories) => setCategories(categories));
-
+    console.log(category);
     return (
         <FormControl>
             <InputLabel htmlFor="category-select">Category</InputLabel>
@@ -92,9 +92,11 @@ function CategorySelect({ category, onChange, className }) {
                 {categories.map((category) => (
                     <option
                         key={category.id}
-                        // value={[category.id, category.name]}
-                        value={category.id}
-                        catname={category.name}
+                        value={JSON.stringify({
+                            id: category.id,
+                            name: category.name
+                        })}
+                        // value={category.id}
                     >
                         {category.name}
                     </option>

@@ -17,6 +17,7 @@ export default function AnswersDisplay() {
                 {({ state: { answers, correct_answer }, onClick }) =>
                     answers.map((answer) => (
                         <Answer
+                            key={answer}
                             answer={answer}
                             onClick={onClick}
                             correct_answer={correct_answer}
@@ -30,7 +31,7 @@ export default function AnswersDisplay() {
 
 function Answer({ answer, onClick, correct_answer }) {
     return (
-        <Grid item xs={5} key={answer}>
+        <Grid item xs={5}>
             <Button
                 fullWidth
                 style={answerStyle}

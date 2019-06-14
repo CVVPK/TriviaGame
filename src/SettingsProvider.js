@@ -6,16 +6,11 @@ export default class SettingsProvider extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            // catName: "",
-            category: 9, // ""
-            difficulty: "hard" //""
+            category: JSON.stringify({ id: 9, name: "General Knowledge" }),
+            difficulty: "hard"
         };
     }
     handleChange({ target: { value, name } }) {
-        // console.log(typeof value);
-        // if (Array.isArray(value)) console.log("ye");
-        // this.setState({ [name]: value[0], catName: value[1] });
-
         this.setState({ [name]: value });
     }
     handleClick(event) {
@@ -28,6 +23,9 @@ export default class SettingsProvider extends React.Component {
             <Settings.Provider
                 value={{
                     state: this.state,
+                    categoryId: JSON.parse(this.state.category).id,
+                    categoryName: JSON.parse(this.state.category).name,
+                    difficulty: this.state.difficulty,
                     onChange: this.handleChange.bind(this),
                     onClick: this.handleClick.bind(this)
                 }}

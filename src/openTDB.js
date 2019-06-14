@@ -2,6 +2,7 @@
 export default async function getQ({ category }) {
     const query = [`api.php?amount=50`, `category=${category}`];
     const response = await request(query.join("&"));
+    console.log(category);
     return response.results;
 }
 
