@@ -1,9 +1,32 @@
 import React from "react";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
 
 export default function PauseOverlay() {
-    return <div style={pauseStyle} />;
+    return (
+        <Grid
+            container
+            justify="space-between"
+            direction="column"
+            style={pauseStyle}
+        >
+            <Typography
+                variant="h1"
+                align="center"
+                color="primary"
+                style={pauseText}
+            >
+                Getting More Questions
+            </Typography>
+            <LinearProgress variant="query" />
+        </Grid>
+    );
 }
 
+const pauseText = {
+    marginTop: "25%"
+};
 const pauseStyle = {
     zIndex: 1,
     position: "absolute",
@@ -11,6 +34,6 @@ const pauseStyle = {
     top: 0,
     right: 0,
     bottom: 0,
-    opacity: 0.7,
+    opacity: 0.9,
     backgroundColor: "black"
 };

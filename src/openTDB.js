@@ -1,6 +1,6 @@
 // Get a random question from the API DB
 export default async function getQ({ category }) {
-    const query = [`api.php?amount=1`, `category=${category}`];
+    const query = [`api.php?amount=50`, `category=${category}`];
     const response = await request(query.join("&"));
     return response.results;
 }

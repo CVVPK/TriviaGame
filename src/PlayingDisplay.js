@@ -35,7 +35,7 @@ export default function PlayingDisplay({
                             />
                         </Typography>
                     </Grid>
-                    <QuestionDisplay />
+                    <QuestionDisplay style={questionStyle} />
                 </Grid>
                 <AnswersDisplay />
             </React.Fragment>
@@ -52,3 +52,11 @@ export default function PlayingDisplay({
             </Grid>
         );
 }
+const questionStyle = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexGrow: 1,
+    textAlign: "center",
+    fontSize: "2rem"
+};

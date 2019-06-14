@@ -1,24 +1,15 @@
 import React from "react";
 import { Question } from "./QuestionProvider";
 
-export default function QuestionDisplay() {
+export default function QuestionDisplay({ style }) {
     return (
         <Question.Consumer>
             {({ state: { question } }) => (
                 <div
-                    style={questionStyle}
+                    style={style}
                     dangerouslySetInnerHTML={{ __html: question }}
                 />
             )}
         </Question.Consumer>
     );
 }
-
-const questionStyle = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexGrow: 1,
-    textAlign: "center",
-    fontSize: "2rem"
-};

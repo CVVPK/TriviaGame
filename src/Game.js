@@ -1,10 +1,11 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import QuestionProvider from "./QuestionProvider.js";
-import EndGame from "./EndGame";
+import EndGameDisplay from "./EndGameDisplay";
 import { Settings } from "./SettingsProvider";
 import PlayingDisplay from "./PlayingDisplay.js";
 import PauseOverlay from "./PauseOverlay";
+
 // Main Game component
 export default class Game extends React.Component {
     constructor(props) {
@@ -50,7 +51,7 @@ export default class Game extends React.Component {
     }
 
     finishGame(msg) {
-        // this.setState({ playing: false, finish: true, endGameMsg: msg });
+        this.setState({ playing: false, finish: true, endGameMsg: msg });
     }
 
     render() {
@@ -79,7 +80,7 @@ export default class Game extends React.Component {
                     </Settings.Consumer>
                 )}
                 {!this.state.playing && this.state.finish && (
-                    <EndGame
+                    <EndGameDisplay
                         score={this.state.score}
                         endGameMsg={this.state.endGameMsg}
                     />

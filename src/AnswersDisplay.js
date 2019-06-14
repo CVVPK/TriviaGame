@@ -16,19 +16,11 @@ export default function AnswersDisplay() {
             <Question.Consumer>
                 {({ state: { answers, correct_answer }, onClick }) =>
                     answers.map((answer) => (
-                        <Grid item xs={5} key={answer}>
-                            <Button
-                                fullWidth
-                                style={answerStyle}
-                                variant="contained"
-                                color="primary"
-                                onClick={() =>
-                                    onClick(answer === correct_answer)
-                                }
-                            >
-                                <Answer answer={answer} />
-                            </Button>
-                        </Grid>
+                        <Answer
+                            answer={answer}
+                            onClick={onClick}
+                            correct_answer={correct_answer}
+                        />
                     ))
                 }
             </Question.Consumer>
@@ -36,11 +28,21 @@ export default function AnswersDisplay() {
     );
 }
 
-function Answer({ answer }) {
+function Answer({ answer, onClick, correct_answer }) {
     return (
-        <Typography variant="h6">
-            <span dangerouslySetInnerHTML={{ __html: answer }} />
-        </Typography>
+        <Grid item xs={5} key={answer}>
+            <Button
+                fullWidth
+                style={answerStyle}
+                variant="contained"
+                color="primary"
+                onClick={() => onClick(answer === correct_answer)}
+            >
+                <Typography variant="h6">
+                    <span dangerouslySetInnerHTML={{ __html: answer }} />
+                </Typography>
+            </Button>
+        </Grid>
     );
 }
 
