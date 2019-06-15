@@ -1,5 +1,6 @@
 import React from "react";
 
+// Component to display a timer, provides necessary functionality to control it.
 export default class Timer extends React.Component {
     constructor(props) {
         super(props);
@@ -18,6 +19,7 @@ export default class Timer extends React.Component {
         }, 1000);
         this.setState({ interval: interval });
     }
+
     stopTimer() {
         clearInterval(this.state.interval);
     }
@@ -41,9 +43,11 @@ export default class Timer extends React.Component {
         time += this.state.initExtra;
         this.setState({ time: time });
     }
+
     componentDidMount() {
         this.startTimer();
     }
+
     componentDidUpdate({ pause, extraTime }) {
         if (this.props.extraTime !== extraTime) this.addExtraTime();
         if (this.props.pause !== pause) this.pauseResume();

@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+// Component to display a level selection form.
 export default function LevelSelect() {
     const classes = useStyles();
     return (
@@ -53,6 +54,7 @@ export default function LevelSelect() {
     );
 }
 
+// Componenent to select a difficulty
 function DifficultySelect({ difficulty, onChange, className }) {
     return (
         <FormControl>
@@ -63,22 +65,23 @@ function DifficultySelect({ difficulty, onChange, className }) {
                 onChange={onChange}
                 input={<Input name="difficulty" id="difficulty-select" />}
             >
-                <option value="" />
                 <option value="easy">Easy</option>
-                <option value="normal">Normal</option>
+                <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
+                <option value="ultimate">Ultimate</option>
             </NativeSelect>
         </FormControl>
     );
 }
 
+// Componenet to select a category
 function CategorySelect({ category, onChange, className }) {
     const [categories, setCategories] = useState([]);
 
     // Populate categories with the categories available in the DB.
     if (categories.length === 0)
         getCategories().then((categories) => setCategories(categories));
-    console.log(category);
+
     return (
         <FormControl>
             <InputLabel htmlFor="category-select">Category</InputLabel>
@@ -88,7 +91,6 @@ function CategorySelect({ category, onChange, className }) {
                 onChange={onChange}
                 input={<Input name="category" id="category-select" />}
             >
-                <option value="" />
                 {categories.map((category) => (
                     <option
                         key={category.id}
@@ -96,7 +98,6 @@ function CategorySelect({ category, onChange, className }) {
                             id: category.id,
                             name: category.name
                         })}
-                        // value={category.id}
                     >
                         {category.name}
                     </option>

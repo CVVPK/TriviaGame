@@ -8,6 +8,7 @@ import QuestionDisplay from "./QuestionDisplay";
 import AnswersDisplay from "./AnswersDisplay";
 import { Typography } from "@material-ui/core";
 
+// Compononent to display the playing screen, displays a loading screen while waiting on game to begin.
 export default function PlayingDisplay({
     state: { score, extraTime, playing, pause },
     finishGame,
@@ -37,14 +38,22 @@ export default function PlayingDisplay({
                             />
                         </Typography>
                     </Grid>
-
-                    <Typography
-                        variant="subtitle1"
-                        color="textSecondary"
-                        justify="center"
-                    >
-                        {categoryName}
-                    </Typography>
+                    <Grid container justify="space-between">
+                        <Typography
+                            variant="subtitle1"
+                            color="textSecondary"
+                            justify="center"
+                        >
+                            Category: {categoryName}
+                        </Typography>
+                        <Typography
+                            variant="subtitle1"
+                            color="textSecondary"
+                            justify="center"
+                        >
+                            Difficulty: {capitalize(difficulty)}
+                        </Typography>
+                    </Grid>
 
                     <QuestionDisplay style={questionStyle} />
                 </Grid>
@@ -63,6 +72,10 @@ export default function PlayingDisplay({
             </Grid>
         );
 }
+
+const capitalize = (str) =>
+    str.replace(/^(\w)(.*)/, (match, p1, p2) => p1.toUpperCase() + p2);
+
 const questionStyle = {
     display: "flex",
     alignItems: "center",

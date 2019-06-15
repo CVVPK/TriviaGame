@@ -2,12 +2,13 @@ import React from "react";
 
 export const Settings = React.createContext();
 
+// Defines the game settings state and functionality to change them.
 export default class SettingsProvider extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             category: JSON.stringify({ id: 9, name: "General Knowledge" }),
-            difficulty: "hard"
+            difficulty: "easy"
         };
     }
     handleChange({ target: { value, name } }) {

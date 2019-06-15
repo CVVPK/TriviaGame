@@ -1,6 +1,7 @@
 import React from "react";
 import { Question } from "./QuestionProvider";
 
+// Component to display a Single Question.
 export default function QuestionDisplay({ style }) {
     return (
         <Question.Consumer>

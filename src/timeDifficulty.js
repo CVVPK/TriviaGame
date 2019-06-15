@@ -4,8 +4,9 @@ import TimeSettings from "./TimeSettings.js";
 export default function timeDifficulty(difficulty) {
     let time = {
         easy: new TimeSettings(30, 10),
-        normal: new TimeSettings(20, 5),
-        hard: new TimeSettings(10, 2)
+        medium: new TimeSettings(20, 5),
+        hard: new TimeSettings(10, 2),
+        ultimate: new TimeSettings(5, 1)
     };
 
     return time[difficulty];

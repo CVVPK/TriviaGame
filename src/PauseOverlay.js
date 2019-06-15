@@ -3,6 +3,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 
+// Component to display a pause overlay that covers entire screen.
 export default function PauseOverlay() {
     return (
         <Grid

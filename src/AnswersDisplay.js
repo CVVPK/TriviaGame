@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import { Question } from "./QuestionProvider";
 import Typography from "@material-ui/core/Typography";
 
+// Component to display the possible answers to a question
 export default function AnswersDisplay() {
     return (
         <Grid
@@ -29,6 +30,7 @@ export default function AnswersDisplay() {
     );
 }
 
+// Componenent to display a single answer
 function Answer({ answer, onClick, correct_answer }) {
     return (
         <Grid item xs={5}>

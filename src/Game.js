@@ -1,12 +1,7 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
-import QuestionProvider from "./QuestionProvider.js";
-import EndGameDisplay from "./EndGameDisplay";
-import { Settings } from "./SettingsProvider";
-import PlayingDisplay from "./PlayingDisplay.js";
-import PauseOverlay from "./PauseOverlay";
+import GameDisplay from "./GameDisplay.js";
 
-// Main Game component
+// Provides game controls and state
 export default class Game extends React.Component {
     constructor(props) {
         super(props);
@@ -19,6 +14,7 @@ export default class Game extends React.Component {
             endGameMsg: "",
             pause: false
         };
+
         this.startGame = this.startGame.bind(this);
         this.finishGame = this.finishGame.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -55,42 +51,6 @@ export default class Game extends React.Component {
     }
 
     render() {
-        return (
-            <Grid container>
-                {this.state.pause && <PauseOverlay />}
-                {!this.state.finish && (
-                    <Settings.Consumer>
-                        {({
-                            state: { difficulty },
-                            categoryId,
-                            categoryName
-                        }) => (
-                            <QuestionProvider
-                                startGame={this.startGame}
-                                finishGame={this.finishGame}
-                                category={categoryId}
-                                newQ={this.state.newQ}
-                                onClick={this.handleClick}
-                                pauseGame={this.pauseGame}
-                                resumeGame={this.resumeGame}
-                            >
-                                <PlayingDisplay
-                                    state={this.state}
-                                    difficulty={difficulty}
-                                    finishGame={this.finishGame}
-                                    categoryName={categoryName}
-                                />
-                            </QuestionProvider>
-                        )}
-                    </Settings.Consumer>
-                )}
-                {!this.state.playing && this.state.finish && (
-                    <EndGameDisplay
-                        score={this.state.score}
-                        endGameMsg={this.state.endGameMsg}
-                    />
-                )}
-            </Grid>
-        );
+        return <GameDisplay props={this} />;
     }
 }
