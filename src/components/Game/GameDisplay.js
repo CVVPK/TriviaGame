@@ -1,9 +1,9 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
-import QuestionProvider from "./QuestionProvider.js";
+import QuestionProvider from "components/Question/QuestionProvider";
 import EndGameDisplay from "./EndGameDisplay";
-import { Settings } from "./SettingsProvider";
-import PlayingDisplay from "./PlayingDisplay.js";
+import { Settings } from "components/Settings/SettingsProvider";
+import PlayingDisplay from "./PlayingDisplay";
 import PauseOverlay from "./PauseOverlay";
 
 // Displays the Game State

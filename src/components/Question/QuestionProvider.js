@@ -1,5 +1,5 @@
 import React from "react";
-import getQ from "./openTDB";
+import getQ from "data/getQ";
 
 export const Question = React.createContext();
 

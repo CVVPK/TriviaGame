@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Container from "@material-ui/core/Container";
-import SettingsProvider from "./SettingsProvider";
-import Game from "./Game.js";
-import LevelSelect from "./LevelSelect";
+import SettingsProvider from "./components/Settings/SettingsProvider";
+import Game from "./components/Game/Game";
+import LevelSelect from "./components/Settings/LevelSelect";
 
 export default function App() {
     const [displayGame, setDisplayGame] = useState(false); // false to show settings

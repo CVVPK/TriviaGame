@@ -1,5 +1,5 @@
 import React from "react";
-import GameDisplay from "./GameDisplay.js";
+import GameDisplay from "./GameDisplay";
 
 // Provides game controls and state
 export default class Game extends React.Component {

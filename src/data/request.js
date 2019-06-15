@@ -1,24 +1,7 @@
-// Get a random question from the API DB
-export default async function getQ({ category, difficulty }, amount = 50) {
-    const query = [
-        `api.php?amount=${amount}`,
-        `category=${category}`,
-        `difficulty=${difficulty !== "ultimate" ? difficulty : ""}`
-    ];
-    const response = await request(query.join("&"));
-
-    return response.results;
-}
-
-// Returns available categories
-export async function getCategories() {
-    const query = "api_category.php";
-    const response = await request(query, false);
-    return response.trivia_categories;
-}
+import { sessionToken } from "./sessionToken";
 
 // Promise to handle a request
-async function request(query, useToken = true) {
+export default async function request(query, useToken = true) {
     const token = useToken ? `&token=${await sessionToken}` : "";
     const url = "https://opentdb.com/";
     return new Promise((resolve, reject) => {
@@ -40,10 +23,3 @@ async function request(query, useToken = true) {
         });
     });
 }
-
-// Get an api token to prevent duplicate questions
-const sessionToken = (async function() {
-    const query = "api_token.php?command=request";
-    const response = await request(query, false);
-    return response.token;
-})();

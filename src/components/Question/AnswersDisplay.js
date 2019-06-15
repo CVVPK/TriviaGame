@@ -1,8 +1,8 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import { Question } from "./QuestionProvider";
 import Typography from "@material-ui/core/Typography";
+import { Question } from "./QuestionProvider";
 
 // Component to display the possible answers to a question
 export default function AnswersDisplay() {

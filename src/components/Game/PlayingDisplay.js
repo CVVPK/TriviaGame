@@ -2,10 +2,10 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Score from "./Score";
-import Timer from "./Timer";
-import timeDifficulty from "./timeDifficulty";
-import QuestionDisplay from "./QuestionDisplay";
-import AnswersDisplay from "./AnswersDisplay";
+import Timer from "components/Timer/Timer";
+import timeDifficulty from "components/Timer/timeDifficulty";
+import QuestionDisplay from "components/Question/QuestionDisplay";
+import AnswersDisplay from "components/Question/AnswersDisplay";
 import { Typography } from "@material-ui/core";
 
 // Compononent to display the playing screen, displays a loading screen while waiting on game to begin.
