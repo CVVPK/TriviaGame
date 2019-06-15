@@ -1,5 +1,5 @@
 import React from "react";
-import getQ from "data/getQ";
+import getQ from "trivia/getQ";
 
 export const Question = React.createContext();
 

@@ -8,7 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import { Settings } from "./SettingsProvider";
-import getCategories from "data/getCategories";
+import getCategories from "trivia/getCategories";
 
 const useStyles = makeStyles((theme) => ({
     playBtn: {
