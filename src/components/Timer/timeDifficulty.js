@@ -1,5 +1,3 @@
-import TimeSettings from "./TimeSettings.js";
-
 // Returns a TimeSettings object corresponding to  difficulty
 export default function timeDifficulty(difficulty) {
     let time = {
@@ -10,4 +8,9 @@ export default function timeDifficulty(difficulty) {
     };
 
     return time[difficulty];
+}
+
+function TimeSettings(initTime, initExtra) {
+    this.initTime = initTime;
+    this.initExtra = initExtra;
 }
