@@ -9,4 +9,4 @@ To run localy simply run
 If you wish to deploy your own version of this app run 
 >```npm run build```
 
-For more info about deployment check the official React Docs section on [deployment](https://facebook.github.io/create-react-app/docs/deployment)
+For more info about deployment check the official React Docs section on [deployment](https://facebook.github.io/create-react-app/docs/deployment).
